@@ -27,10 +27,12 @@ int main(void){
                     fread(&g, sizeof(unsigned char), 1, bitmap);
                     fread(&b, sizeof(unsigned char), 1, bitmap);
 
+                    l = 255 - ((r + g + b) / 3);
+
                     // Do your conversion process here
-                    fwrite(&r, sizeof(unsigned char), 1, bitmap_out);
-                    fwrite(&r, sizeof(unsigned char), 1, bitmap_out);
-                    fwrite(&r, sizeof(unsigned char), 1, bitmap_out);
+                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
+                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
+                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
                 }
             }
             fclose(bitmap_out);
