@@ -6,14 +6,13 @@ int main(void){
     int type,w,h,d;
 
     printf("RGB Color Test\n");
-    bitmap = fopen("ada.pbm", "rb");
-    bitmap_out = fopen("out.pbm", "wb");
+    bitmap = fopen("ada.pbm", "r");
+    bitmap_out = fopen("out.pbm", "w");
 
     if (bitmap){
         if (bitmap_out){
-            int ret;
-            ret = fscanf(bitmap, "P%d%d%d%d\n\r", &type, &w, &h, &d);
-            printf("type = %d, width = %d, height = %d, palette size = %d, returned %d\n", type, w, h, d, ret);
+            fscanf(bitmap, "P%d%d%d%d", &type, &w, &h, &d);
+            printf("type = %d, width = %d, height = %d, palette size = %d\n", type, w, h, d);
 
             fprintf(bitmap_out, "P%d %d %d %d ", type, w, h, d);
 
@@ -27,12 +26,11 @@ int main(void){
                     fread(&g, sizeof(unsigned char), 1, bitmap);
                     fread(&b, sizeof(unsigned char), 1, bitmap);
 
-                    l = 255 - ((r + g + b) / 3);
-
                     // Do your conversion process here
-                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
-                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
-                    fwrite(&l, sizeof(unsigned char), 1, bitmap_out);
+
+                    fwrite(&r, 1, 1, bitmap_out);
+                    fwrite(&r, 1, 1, bitmap_out);
+                    fwrite(&r, 1, 1, bitmap_out);
                 }
             }
             fclose(bitmap_out);
